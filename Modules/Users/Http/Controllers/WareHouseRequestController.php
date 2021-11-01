@@ -10,8 +10,8 @@ use Modules\Users\Entities\Category;
 use Modules\Users\Entities\Items;
 use Modules\Users\Entities\Brands;
 use Modules\Users\Entities\StatusCategory;
-use Modules\Users\Entities\wareHouse;
-use Modules\Users\Entities\wareHouseRequest;
+use Modules\Users\Entities\WareHouse;
+use Modules\Users\Entities\WareHouseRequest;
 
 class WareHouseRequestController extends Controller
 {
@@ -26,7 +26,7 @@ class WareHouseRequestController extends Controller
      */
     public function index()
     {
-         $wareHouseRequest=wareHouseRequest::where('ware_id','=',auth()->user()->ware_id)->where('remark',2)->get();
+         $wareHouseRequest=WareHouseRequest::where('ware_id','=',auth()->user()->ware_id)->where('remark',2)->get();
         return view('users::wareHouseRequest.approved',compact('wareHouseRequest'));
     }
 
@@ -36,7 +36,7 @@ class WareHouseRequestController extends Controller
      */
     public function create()
     {
-        $wareHouseRequest=wareHouseRequest::where('ware_id','=',auth()->user()->ware_id)->where('remark',1)->get();
+        $wareHouseRequest=WareHouseRequest::where('ware_id','=',auth()->user()->ware_id)->where('remark',1)->get();
 
         return view('users::wareHouseRequest.pending',compact('wareHouseRequest'));
     }
@@ -59,9 +59,9 @@ class WareHouseRequestController extends Controller
     public function show($id)
     {
         try{
-            $wareHouseRequest=wareHouseRequest::where('id',$id)->where('user_id',$this->userID())->firstOrFail();
+            $wareHouseRequest=WareHouseRequest::where('id',$id)->where('user_id',$this->userID())->firstOrFail();
             $items=Items::where('user_id',auth()->user()->id)->pluck('name','id')->all();
-            $warehouses=wareHouse::pluck('ware_house_name','warehouse_id')->all();
+            $warehouses=WareHouse::pluck('ware_house_name','warehouse_id')->all();
             return view('users::wareHouseRequest.form',compact('wareHouseRequest','items','warehouses'));
         }catch (ModelNotFoundException $exception){
             return back()->withError('Ware House Request not found by ID ' . $id)->withInput();
@@ -71,7 +71,7 @@ class WareHouseRequestController extends Controller
 
     public function reject()
     {
-        $wareHouseRequest=wareHouseRequest::where('remark',3)->where('user_id',$this->userID())->get();
+        $wareHouseRequest=WareHouseRequest::where('remark',3)->where('user_id',$this->userID())->get();
         return view('users::wareHouseRequest.rejected',compact('wareHouseRequest'));
     }
 
@@ -94,7 +94,7 @@ class WareHouseRequestController extends Controller
     public function update(Request $request, $id)
     {
         try{
-            $ware=wareHouseRequest::where('id',$id)->where('user_id',$this->userID())->firstOrFail();
+            $ware=WareHouseRequest::where('id',$id)->where('user_id',$this->userID())->firstOrFail();
             $ware->user_id=auth()->user()->id;
             $ware->item_id=$request->item_id;
             $ware->ware_id= auth()->user()->ware_id;
@@ -116,7 +116,7 @@ class WareHouseRequestController extends Controller
     public function destroy($id)
     {
         try{
-            $ware=wareHouseRequest::where('id',$id)->where('user_id',$this->userID())->firstOrFail();
+            $ware=WareHouseRequest::where('id',$id)->where('user_id',$this->userID())->firstOrFail();
             $ware->delete();
             return redirect()->back()->with('success','Success Deleted');
         }catch (ModelNotFoundException $exception){

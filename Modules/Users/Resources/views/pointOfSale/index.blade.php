@@ -15,7 +15,7 @@
                         <img class="img-rounded" height="50" width="50" src="/images/{{$value->item_image}}" alt="">
                     </p>
                     <h5 class="card-title">
-                    <a href="" id="name">
+                    <a href="" id="setPos">
                           {{$value->name??''}}
                     </a>
                     </h5>
@@ -48,10 +48,8 @@
             </tr>
         </thead>
         <tbody>
-           
         </tbody>
     </table>
-
     </div>
 </div>
 

@@ -61,7 +61,7 @@ class PointOfSaleController extends Controller
             
             return redirect()->back()->with(['success'=>'Payment Successfully Made','data'=>$pos]);
           } catch (\Throwable $th) {
-
+            return redirect()->back()->with(['error'=>'Payment Not Successfully Made'.$th->getMessage()]);
           }
 
     }

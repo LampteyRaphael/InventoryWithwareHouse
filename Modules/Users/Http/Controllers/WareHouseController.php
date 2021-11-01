@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Users\Entities\Items;
-use Modules\Users\Entities\wareHouseRequest;
+use Modules\Users\Entities\WareHouseRequest;
 
 class WareHouseController extends Controller
 {
@@ -39,7 +39,7 @@ WareHouse Account Crated By the User
      */
     public function store(Request $request)
     {
-       $ware=new wareHouseRequest();
+       $ware=new WareHouseRequest();
         $ware->user_id=auth()->user()->id;
         $ware->item_id=$request->item_id;
         $ware->ware_id= auth()->user()->ware_id;

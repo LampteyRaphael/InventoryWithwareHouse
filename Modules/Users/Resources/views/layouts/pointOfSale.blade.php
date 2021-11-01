@@ -141,15 +141,23 @@
 
 
 
-var name=document.getElementById('name');
 
- name.addEventListener('click',function () {
-  
-        alert('hiii');
-        });
 
 
 </script>
+
+<script>
+var setPos=document.getElementById('setPos');
+
+
+ setPos.addEventListener('click',function () {
+   var cc= setPos.innerText;
+   alert(cc);
+    
+});
+</script>
+
+
 </body>
 </html>
 
